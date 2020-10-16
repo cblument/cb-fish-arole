@@ -1,0 +1,18 @@
+---
+- include: "{{ ansible_distribution }}/main.yml"
+
+- name: create completions directory
+  file:
+    path: "{{ lookup('env', 'HOME') }}/.config/fish/completions"
+    state: directory
+
+- name: kubernetes completions
+  git:
+    repo: "https://github.com/evanlucas/fish-kubectl-completions"
+    dest: "{{ lookup('env', 'HOME') }}/.config/fish/fish-kubectl-completions"
+
+- name: symlink in kubernetes completions
+  file:
+    src: "{{ lookup('env', 'HOME') }}/.config/fish/fish-kubectl-completions/completions/kubectl.fish"
+    dest: "{{ lookup('env', 'HOME') }}/.config/fish/completions/kubectl.fish"
+    state: link
