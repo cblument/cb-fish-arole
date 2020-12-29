@@ -9,9 +9,3 @@
     path: /etc/shells
     line: "/usr/local/bin/fish"
   become: yes
-
-- name: Change default shell to fish
-  user:
-    name: "{{ lookup('env', 'USER') }}"
-    shell: "/usr/local/bin/fish"
-  become: yes
